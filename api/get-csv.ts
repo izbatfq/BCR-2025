@@ -34,6 +34,10 @@ export default async function handler(
       .sort((a, b) => new Date(b.uploadedAt).getTime() - new Date(a.uploadedAt).getTime())[0];
 
     if (!latestBlob) {
+      const optionalKinds = ['start', 'checkpoint'];
+      if (optionalKinds.includes(kind)) {
+        return res.status(200).json({ text: null, filename: null, updatedAt: null });
+      }
       return res.status(404).json({ error: 'CSV tidak ditemukan' });
     }
 
