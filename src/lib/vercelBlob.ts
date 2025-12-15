@@ -129,6 +129,7 @@ export type AppSettings = {
   cutoffMs: number | null;
   catStartMap: Record<string, string>;
   eventTitle: string;
+  dqMap: Record<string, boolean>;
 };
 
 export async function getSettingsFromBlob(): Promise<AppSettings | null> {

@@ -97,6 +97,9 @@ export default function App() {
             localStorage.setItem(LS_EVENT_TITLE, settings.eventTitle);
             setEventTitle(settings.eventTitle);
           }
+          if (settings.dqMap && Object.keys(settings.dqMap).length > 0) {
+            localStorage.setItem(LS_DQ, JSON.stringify(settings.dqMap));
+          }
         }
       } catch (error) {
         console.error('Gagal memuat settings dari Blob:', error);

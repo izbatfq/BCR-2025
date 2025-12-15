@@ -26,6 +26,7 @@ export default async function handler(
           cutoffMs: null,
           catStartMap: {},
           eventTitle: '',
+          dqMap: {},
         });
       }
 

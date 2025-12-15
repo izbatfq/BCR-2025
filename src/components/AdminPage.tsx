@@ -130,6 +130,10 @@ export default function AdminPage({
               setEventTitle(settings.eventTitle);
               localStorage.setItem(LS_EVENT_TITLE, settings.eventTitle);
             }
+            if (settings.dqMap && Object.keys(settings.dqMap).length > 0) {
+              setDqMap(settings.dqMap);
+              saveDQMap(settings.dqMap);
+            }
           }
         } catch (error) {
           console.error('Gagal memuat settings dari Blob:', error);
@@ -156,10 +160,12 @@ export default function AdminPage({
     if (import.meta.env.DEV) return;
     
     const ms = loadCutoffMs();
+    const currentDqMap = loadDQMap();
     const settings: AppSettings = {
       cutoffMs: overrides.cutoffMs !== undefined ? overrides.cutoffMs : ms,
       catStartMap: overrides.catStartMap !== undefined ? overrides.catStartMap : catStart,
       eventTitle: overrides.eventTitle !== undefined ? overrides.eventTitle : eventTitle,
+      dqMap: overrides.dqMap !== undefined ? overrides.dqMap : currentDqMap,
     };
     
     try {
@@ -360,12 +366,13 @@ export default function AdminPage({
     alert("Cut off time berhasil diperbarui");
   };
 
-  const toggleDQ = (epc: string) => {
+  const toggleDQ = async (epc: string) => {
     const next = { ...dqMap, [epc]: !dqMap[epc] };
     if (!next[epc]) delete next[epc];
     setDqMap(next);
     saveDQMap(next);
     onConfigChanged();
+    await saveAllSettingsToBlob({ dqMap: next });
   };
 
   const applyCatStart = async () => {
