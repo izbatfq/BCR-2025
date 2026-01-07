@@ -2,10 +2,12 @@
 
 // ✅ Canonical category keys (as requested)
 export const CATEGORY_KEYS = [
-  "10K Laki-laki",
-  "10K Perempuan",
-  "5K Laki-Laki",
-  "5K Perempuan",
+  "10K Men",
+  "10K Women",
+  "30K Men",
+  "30K Women",
+  "45K Men",
+  "45K Women",
 ] as const;
 
 export type CategoryKey = (typeof CATEGORY_KEYS)[number];

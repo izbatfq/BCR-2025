@@ -57,17 +57,23 @@ function normalizeCategoryFromMaster(args: {
   const c = norm(args.rawCategory);
   const g = norm(args.rawGender);
 
+  // Deteksi jarak (10K, 30K, 45K)
   const is10k = c.includes("10") || c.includes("10k") || c.includes("10 km") || c.includes("10km");
-  const is5k = c.includes("5") || c.includes("5k") || c.includes("5 km") || c.includes("5km");
+  const is30k = c.includes("30") || c.includes("30k") || c.includes("30 km") || c.includes("30km");
+  const is45k = c.includes("45") || c.includes("45k") || c.includes("45 km") || c.includes("45km");
 
-  const female = g.includes("perempuan") || g.includes("wanita") || g === "f" || g.includes("female");
+  // Deteksi gender (English + Indonesian untuk backward compatibility)
+  const female = g.includes("perempuan") || g.includes("wanita") || g === "f" ||
+                 g.includes("female") || g.includes("woman") || g.includes("women");
 
-  if (is10k) return female ? "10K Perempuan" : "10K Laki-laki";
-  if (is5k) return female ? "5K Perempuan" : "5K Laki-Laki";
+  // Mapping ke kategori baru
+  if (is10k) return female ? "10K Women" : "10K Men";
+  if (is30k) return female ? "30K Women" : "30K Men";
+  if (is45k) return female ? "45K Women" : "45K Men";
 
-  // fallback: try to match directly
+  // fallback: try to match directly against new categories
   const direct = CATEGORY_KEYS.find((k) => norm(k) === c || norm(k).includes(c) || c.includes(norm(k)));
-  return (direct as CategoryKey) || "10K Laki-laki";
+  return (direct as CategoryKey) || "10K Men"; // Updated default
 }
 
 export type MasterParticipant = {

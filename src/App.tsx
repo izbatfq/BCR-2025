@@ -82,9 +82,19 @@ export default function App() {
       setSettingsLoaded(true);
       return;
     }
-    
+
     (async () => {
       try {
+        const MIGRATION_KEY = "imr_cat_migration_v1";
+        if (!localStorage.getItem(MIGRATION_KEY)) {
+          const oldData = JSON.parse(localStorage.getItem(LS_CAT_START) || "{}");
+          if (Object.keys(oldData).length > 0) {
+            localStorage.removeItem(LS_CAT_START);
+            console.log("Category start times cleared due to category migration");
+          }
+          localStorage.setItem(MIGRATION_KEY, "true");
+        }
+
         const settings = await getSettingsFromBlob();
         if (settings) {
           if (settings.cutoffMs != null) {
