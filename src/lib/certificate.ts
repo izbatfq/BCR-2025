@@ -48,9 +48,9 @@ export type CertData = {
     };
   
     // ===== TITLE & NAME =====
-    drawCenter("E-Certificate Finisher", 280, 56, "#1e293b");
+    drawCenter("Finisher", 280, 56, "#FFFFFF");
   
-    drawCenter(data.name || "-", 500, 80, "#0f172a");
+    drawCenter(data.name || "-", 500, 80, "#FFFFFF");
   
     ctx.font = `700 42px Roboto, sans-serif`;
     ctx.fillStyle = "#334155";
@@ -84,8 +84,8 @@ export type CertData = {
     ctx.textAlign = "center";
     ctx.textBaseline = "alphabetic";
     ctx.font = `700 32px Roboto, sans-serif`;
-    ctx.fillStyle = "#64748b";
-    ctx.fillText("Timing by IZT Race Technology", centerX, footerY);
+    ctx.fillStyle = "#FFFFFF";
+    ctx.fillText("Timing by IJT Race Technology", centerX, footerY);
   
     return canvas.toDataURL("image/png");
   }
