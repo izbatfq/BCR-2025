@@ -26,7 +26,7 @@ export type CertData = {
   
     // ✅ background image: gunakan IMR-CERTI.png di root CodeSandbox
     try {
-      const bg = await loadImage("/IMR-CERTI.png");
+      const bg = await loadImage("/CERTIFICATE.png");
       ctx.drawImage(bg, 0, 0, W, H);
     } catch {
       // kalau belum ada / gagal load, abaikan saja
